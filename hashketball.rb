@@ -260,3 +260,111 @@ def big_shoe_rebounds
 end
 
 #I will be working on the bonus questions and resumbitting this.
+
+def most_points_scored
+hash = game_hash
+points = 0
+who = ""
+hash.each do |location, data|
+  data.each do |k, v|
+  if k == :players
+  v.each do |player_hash|
+    player_hash.each do |name, stats|
+      stats.each do |a, b|
+        if a == :points && points < b
+          points = b
+          who = name
+      end
+       end
+        end
+      end
+end
+end
+end
+return who
+end
+
+
+def winning_team
+hash = game_hash
+home = 0
+away = 0
+hash.each do |location, data|
+  data.each do |key, value|
+    if key == :players
+      value.each do |name_hash|
+        name_hash.each do |name, stats|
+          stats.each do |info, num|
+        if location == :away && info == :points
+          away += num
+        end
+        if location == :home && info == :points
+          home += num
+        end
+      end
+    end
+  end
+end
+end
+end
+if home > away
+  return hash[:home][:team_name]
+else
+  return hash[:away][:team_name]
+end
+end
+
+
+def player_with_longest_name
+  hash = game_hash
+  longest = ""
+  hash.each do |location, data|
+    data.each do |k, v|
+    if k == :players
+    v.each do |player_hash|
+      player_hash.each do |name, stats|
+        if name.length > longest.length
+          longest = name
+
+        end
+          end
+        end
+      end
+    end
+  end
+  return longest
+end
+
+
+
+def long_name_steals_a_ton?
+  hash = game_hash
+  longest = ""
+  most_steals = 0
+  most_steal_name = ""
+  hash.each do |location, data|
+    data.each do |k, v|
+    if k == :players
+    v.each do |player_hash|
+      player_hash.each do |name, stats|
+        if name.length > longest.length
+          longest = name
+          where = location
+        end
+        stats.each do |key, value|
+          if key == :steals && value > most_steals
+            most_steals = value
+            most_steal_name = name
+          end
+        end
+      end
+    end
+  end
+end
+end
+if longest == most_steal_name
+  return true
+else
+  return false
+end
+end
