@@ -200,7 +200,6 @@ end
 
 def big_shoe_rebounds()
 
-player = nil
 player_shoe_size = 0
 player_rebound = 0
 
@@ -210,7 +209,6 @@ player_rebound = 0
       game_hash[key1][:players].each do |player_name, data|
         if data[:shoe] > player_shoe_size 
           player_shoe_size = data[:shoe]
-          player = player_name
           player_rebound = data[:rebounds]
 
         end
@@ -219,5 +217,99 @@ player_rebound = 0
   end
 return player_rebound
 end
+
+
+def most_points_scored()
+
+most_points = 0
+player = nil
+
+  game_hash.each do |key1, value1| 
+    value1.each do |key2, value2| 
+ 
+      game_hash[key1][:players].each do |player_name, data|
+        if data[:points] > most_points
+          most_points = data[:points]
+          player = player_name
+
+        end
+      end
+    end
+  end
+return player
+end
+
+def winning_team()
+
+team_home = 0
+team_away = 0
+winning_team = nil
+
+  game_hash.each do |key1, value1| 
+    value1.each do |key2, value2| 
+ 
+      if value2 == "Brooklyn Nets"
+        game_hash[key1][:players].each do |player_name, data|
+        team_home += data[:points]
+          end
+        end
+        
+      if value2 == "Charlotte Hornets"
+        game_hash[key1][:players].each do |player_name, data|
+        team_away += data[:points]
+        
+        if team_home > team_away
+          winning_team = "Brooklyn Nets"
+        else
+          winning_team = "Charlotte Hornets"
+          end
+        end
+      end
+    end
+  end
+return winning_team
+end
+
+
+def player_with_longest_name()
+
+char_count = 0
+player = nil
+  game_hash.each do |key1, value1| 
+    value1.each do |key2, value2| 
+ 
+      game_hash[key1][:players].each do |player_name, data|
+        if player_name.length > char_count
+          char_count = player_name.length
+          player = player_name
+
+        end
+      end
+    end
+  end
+return player
+end
+
+
+def long_name_steals_a_ton?()
+
+most_steals = 0
+player = nil
+  game_hash.each do |key1, value1| 
+    value1.each do |key2, value2| 
+ 
+      game_hash[key1][:players].each do |player_name, data|
+        if data[:steals] > most_steals
+          most_steals = data[:steals]
+          player = player_name
+        end
+      end
+    end
+  end
+return player == player_with_longest_name()
+end
+
+
+
 
 
