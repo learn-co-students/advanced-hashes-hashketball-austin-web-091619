@@ -121,7 +121,7 @@ def findGrandChild (player, grandChild)
       end
     end
   end
-end  
+end
 
 def num_points_scored (player)
   findGrandChild(player, :points)
@@ -129,4 +129,62 @@ end
 
 def shoe_size (player)
   findGrandChild(player, :shoe)
+end
+
+def team_colors(name)
+  game_hash.each do |temp, team|
+    if team[:team_name].eql? name
+      return game_hash[temp][:colors]
+    end
+  end
+end
+
+def team_names
+  game_hash.collect do |temp, team|
+    team[:team_name]
+  end
+end
+
+def player_numbers(name)
+  result = []
+  game_hash.each do |temp, team|
+    if team[:team_name].eql? name
+      team.each do |info, data|
+        if info.eql? :players
+          data.each do |data|
+            result << data[:number]
+          end
+        end
+      end
+    end
+  end
+  result
+end
+
+def player_stats(name)
+  result = []
+  game_hash.each do |from, team|
+    team[:players].each do |key, value|
+      if key[:player_name].eql? name
+        result << {key, value}
+      end
+    end
+  end
+  result
+end
+
+def big_shoe_rebounds
+  biggest_shoe = 0
+  num_rebounds = 0
+
+  game_hash.each do |_team, game_data|
+    game_data[:players].each do |player|
+      if player[:shoe] > biggest_shoe
+        biggest_shoe = player[:shoe]
+        num_rebounds = player[:rebounds]
+      end
+    end
+  end
+
+  num_rebounds
 end
