@@ -166,7 +166,7 @@ def player_stats(name)
   game_hash.each do |from, team|
     team[:players].each do |key, value|
       if key[:player_name].eql? name
-        result << {key, value}
+        result << {key => value}
       end
     end
   end
@@ -174,17 +174,16 @@ def player_stats(name)
 end
 
 def big_shoe_rebounds
-  biggest_shoe = 0
-  num_rebounds = 0
+  temp = 0
+  result = 0
 
-  game_hash.each do |_team, game_data|
-    game_data[:players].each do |player|
-      if player[:shoe] > biggest_shoe
-        biggest_shoe = player[:shoe]
-        num_rebounds = player[:rebounds]
+  game_hash.each do |from, game_data|
+    team[:players].each do |player|
+      if player[:shoe] > temp
+        temp = player[:shoe]
+        result = player[:rebounds]
       end
     end
   end
-
-  num_rebounds
+  result.shift
 end
