@@ -112,3 +112,20 @@ def game_hash
     }
   }
 end
+
+def findGrandChild (player, grandChild)
+  game_hash.each do |temp, team|
+    team[:players].each do |chart, data|
+      if chart[:player_name].eql? player
+        return chart[grandChild]
+      end
+    end
+  end
+
+def num_points_scored (player)
+  findGrandChild(player, :points)
+end
+
+def shoe_size (player)
+  findGrandChild(player, :shoe)
+end
