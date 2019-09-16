@@ -121,6 +121,7 @@ def findGrandChild (player, grandChild)
       end
     end
   end
+end  
 
 def num_points_scored (player)
   findGrandChild(player, :points)
